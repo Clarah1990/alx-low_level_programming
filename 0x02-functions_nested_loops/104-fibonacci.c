@@ -19,10 +19,11 @@ int main(void)
 		a = b;
 		b = c;
 		printf("%lu", c);
-	}
+
 	if (i != 97)
 	{
 		printf(", ");
+	}
 	}
 	printf("\n");
 	return (0);
