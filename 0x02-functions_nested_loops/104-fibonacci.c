@@ -22,7 +22,7 @@ int main(void)
 	}
 	if (i != 97)
 	{
-		printf(",");
+		printf(", ");
 	}
 	printf("\n");
 	return (0);
