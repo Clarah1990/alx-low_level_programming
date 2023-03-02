@@ -1,4 +1,5 @@
 #ifndef MAIN_H
+i
 #define MAIN_H
 
 int _putchar(char c);
