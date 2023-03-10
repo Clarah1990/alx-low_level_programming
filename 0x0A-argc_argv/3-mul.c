@@ -1,5 +1,5 @@
-#include "main.h"
 #include <stdio.h>
+#include "main.h"
 /**
  * _atoi - a program that coverts a string to an integer
  * @s: string to be coverted
