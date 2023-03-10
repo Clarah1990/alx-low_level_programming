@@ -18,6 +18,7 @@ int _atoi(char *s)
 
 	while (s[len] != '\0')
 		len++;
+
 	while (i < len && l == 0)
 	{
 		if (s[i] == '-')
@@ -47,7 +48,7 @@ int _atoi(char *s)
  * main - a program that multiplies two numbers
  * @argc: the number of arguments
  * @argv: array of arguments
- * Return: 0 (Success)
+ * Return: 0 (Success), 1 (Error)
  */
 int main(int argc, char *argv[])
 {
