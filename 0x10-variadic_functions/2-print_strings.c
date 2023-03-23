@@ -8,7 +8,7 @@
  * @n: number of strings passed to the function
  * @...: variable number of strings to be printed
  *
- * Description: if seperator is NULL, it is not printed
+ * Description: if separator is NULL, it is not printed
  * If one of the strings is NULL, (nil) is printed instead
  */
 
