@@ -17,7 +17,7 @@ size_t free_listint_safe(listint_t **h)
 	new = *h;
 	*h = NULL;
 
-	while (new)
+	while (new != NULL)
 	{
 		next = new->next;
 		free(new);
