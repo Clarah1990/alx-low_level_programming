@@ -20,9 +20,9 @@ size_t free_listint_safe(listint_t **h)
 
 	while (new != NULL)
 	{
+		count++;
 		next = new->next;
 		free(new);
-		count++;
 
 		if (next >= new)
 		{
