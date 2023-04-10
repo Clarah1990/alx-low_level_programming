@@ -1,6 +1,4 @@
 #include "lists.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
  * free_listint_safe - a function that frees a listint_t list
@@ -9,28 +7,31 @@
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *new, *next;
-	size_t count = 0;
+	listint_t *tmp;
+	size_t len = 0;
+	int new;
 
-	if (h == NULL)
+	if (!h || !*h)
 		return (0);
 
-	new = *h;
-	*h = NULL;
-
-	while (new != NULL)
+	while (*h)
 	{
-		count++;
-		next = new->next;
-		free(new);
-
-		if (next >= new)
+		new = *h - (*h)->next;
+		if (new > 0)
 		{
-			printf("Error: circular or corrupted list detected!\n");
-			return (count);
+			tmp = (*h)->next;
+			free(*h);
+			*h = tmp;
+			len++;
 		}
-		new = next;
+		else
+		{
+			free(*h);
+			*h = NULL;
+			len++;
+			break;
+		}
 	}
-
-	return (count);
+	*h = NULL;
+	return (len);
 }
