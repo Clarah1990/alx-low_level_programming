@@ -9,15 +9,13 @@
  */
 unsigned int flip_bits(unsigned long int n, unsigned long int m)
 {
-	unsigned int change = n ^ m;
+	unsigned long int change = n ^ m;
 	unsigned int count = 0;
 
-	for (int i = 0; i < sizeof(unsigned int) * 8; i++)
+	while (change != 0)
 	{
-		if ((changef & (1 << i)) != 0)
-		{
-			count++;
-		}
+		count++;
+	change &= change - 1;
 	}
 	return (count);
 }
