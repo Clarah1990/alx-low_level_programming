@@ -9,8 +9,8 @@
  */
 unsigned int binary_to_uint(const char *b)
 {
-	int i;
 	unsigned int decimal_number = 0;
+	int i;
 
 	if (!b)
 		return (0);
