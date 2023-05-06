@@ -9,16 +9,16 @@
  */
 unsigned int binary_to_uint(const char *b)
 {
+	int i;
 	unsigned int decimal_number = 0;
-	int object;
 
 	if (!b)
 		return (0);
-	for (object = 0; b[object]; object++)
+	for (i = 0; b[i]; i++)
 	{
-		if (b[object] < '0' || b[object] > '1')
+		if (b[i] < '0' || b[i] > '1')
 			return (0);
-		decimal_value = 2 * decimal_number + (b[object] - '0');
+		decimal_value = 2 * decimal_number + (b[i] - '0');
 	}
 	return (decimal_number);
 }
