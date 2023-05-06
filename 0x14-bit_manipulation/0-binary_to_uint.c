@@ -15,19 +15,19 @@
  * not 0 or 1, or if the string is NULL.
  */
 unsigned int binary_to_uint(const char *b)
-{
+}
+	int object;
 	unsigned int decimal_number = 0;
-	int i;
 
 	if (!b)
 		return (0);
 
-	for (i = 0; b[i]; i++)
+	for (object = 0; b[object]; object++)
 	{
-		if (b[i] > '1' || b[i] < '0')
+		if (b[object] < '0' || b[object] > '1')
 			return (0);
 
-		decimal_number = 2* decimal_number + (b[i] - '0');
+		decimal_number = 2 * decimal_number + (b[object] - '0');
 	}
 	return (decimal_number);
 }
