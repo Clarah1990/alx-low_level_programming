@@ -16,7 +16,7 @@ char *create_buffer(char *file)
 
 	buf = malloc(sizeof(char) * 1024);
 
-	if (buf)
+	if (buf == NULL)
 	{
 		dprintf(STDERR_FILENO,
 				"Error: can't write to %s\n", file);
@@ -55,7 +55,7 @@ void close_file(int fd)
 int main(int argc, char *argv[])
 {
 	int from, to, ret, w;
-	char *buffer;
+	char *buf;
 
 	if (argc != 3)
 	{
@@ -63,32 +63,32 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
-	buffer = create_buffer(argv[2]);
+	buf = create_buffer(argv[2]);
 	from = open(argv[1], O_RDONLY);
-	ret = read(from, buffer, 1024);
-	to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	ret = read(from, buf, 1024);
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
 		if (from == -1 || ret == -1)
 		{
 			dprintf(STDERR_FILENO,
 					"Error: Can't read from file %s\n", argv[1]);
-			free(buffer);
+			free(buf);
 			exit(98);
 		}
-		w = write(to, buffer, ret);
+		w = write(to, buf, ret);
 		if (to == -1 || w == -1)
 		{
 			dprintf(STDERR_FILENO,
 					"Error: Can't write to %s\n", argv[2]);
-			free(buffer);
+			free(buf);
 			exit(99);
 		}
-		ret = read(from, buffer, 1024);
+		ret = read(from, buf, 1024);
 		to = open(argv[2], O_WRONLY | O_APPEND);
 	} while (ret > 0);
 
-	free(buffer);
+	free(buf);
 	close_file(from);
 	close_file(to);
 
