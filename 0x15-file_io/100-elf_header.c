@@ -1,20 +1,20 @@
 #include <elf.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 void check_elf(unsigned char *e_ident);
+void print_data(unsigned char *e_ident);
 void print_magic(unsigned char *e_ident);
 void print_class(unsigned char *e_ident);
-void print_data(unsigned char *e_ident);
 void print_version(unsigned char *e_ident);
 void print_abi(unsigned char *e_ident);
 void print_osabi(unsigned char *e_ident);
 void print_type(unsigned int e_type, unsigned char *e_ident);
-void print_entry(unsigned long int e_entry, unsigned char *e_ident);
+void print_access(unsigned long int e_entry, unsigned char *e_ident);
 void close_elf(int elf);
 
 /**
@@ -37,6 +37,30 @@ void check_elf(unsigned char *e_ident)
 			exit(98);
 		}
 	}
+}
+
+/**
+ *  print_data - Prints the data of an ELF header.
+ * e_ident: Pointer to an array containing the ELF class.
+  */
+void print_data(unsigned char *e_ident)
+{
+        printf("  Data:                              ");
+
+        switch (e_ident[EI_DATA])
+        {
+        case ELFDATANONE:
+                printf("none\n");
+                break;
+        case ELFDATA2LSB:
+                printf("2's complement, little endian\n");
+                break;
+        case ELFDATA2MSB:
+                printf("2's complement, big endian\n");
+                break;
+        default:
+                printf("<unknown: %x>\n", e_ident[EI_CLASS]);
+        }
 }
 
 /**
@@ -84,31 +108,6 @@ void print_class(unsigned char *e_ident)
 		printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 	}
 }
-
-/**
- * print_data - Prints the data of an ELF header.
- * @e_ident: Pointer to an array containing the ELF class.
- */
-void print_data(unsigned char *e_ident)
-{
-	printf("  Data:                              ");
-
-	switch (e_ident[EI_DATA])
-	{
-	case ELFDATANONE:
-		printf("none\n");
-		break;
-	case ELFDATA2LSB:
-		printf("2's complement, little endian\n");
-		break;
-	case ELFDATA2MSB:
-		printf("2's complement, big endian\n");
-		break;
-	default:
-		printf("<unknown: %x>\n", e_ident[EI_CLASS]);
-	}
-}
-
 /**
  * print_version - Prints the version of an ELF header.
  * @e_ident: Pointer to an array containing the ELF version.
@@ -219,11 +218,11 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
 }
 
 /**
- * print_entry - Prints the entry point of an ELF header.
+ * print_access - Prints the entry point of an ELF header.
  * @e_entry: The address of the ELF entry point.
  * @e_ident: Pointer to an array containing the ELF class.
  */
-void print_entry(unsigned long int e_entry, unsigned char *e_ident)
+void print_access(unsigned long int e_entry, unsigned char *e_ident)
 {
 	printf("  Entry point address:               ");
 
